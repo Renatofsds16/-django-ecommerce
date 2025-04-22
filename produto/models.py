@@ -3,6 +3,8 @@ from PIL import Image
 from django.conf import settings
 from pathlib import Path
 from utils.resize_image import resize_image
+from django.utils.text import slugify
+from utils.real import format_price_real
 
 # Create your models here.
 class Product(models.Model):
@@ -15,20 +17,21 @@ class Product(models.Model):
     image = models.ImageField(
         upload_to='produto_images/%Y/%m',blank=True,null=True
     )
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True,blank=True,null=True)
     price_marketing = models.FloatField(default=0)
     price_marketing_promotional = models.FloatField(default=0)
-    typej = models.CharField(default='V',max_length=1,choices=(('V','Variavel'),('S','Simples')))
+    type = models.CharField(default='V',max_length=1,choices=(('V','Variavel'),('S','Simples')))
 
     def __str__(self):
         return self.name
     
     def save(self,*args, **kwargs):
+        if not self.slug:
+            slug = f'{slugify(self.name)}'
+            self.slug = slug
         super().save(*args,**kwargs)
         if self.image:
             resize_image(img=self.image,new_width=800)
-            
-
     
     
     
@@ -42,3 +45,6 @@ class Variation(models.Model):
     price = models.FloatField(default=0)
     price_promotional = models.FloatField(default=0)
     stock = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name

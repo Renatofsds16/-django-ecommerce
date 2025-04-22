@@ -9,7 +9,7 @@ class VariationInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = 'name','description','price_marketing',
+    list_display = 'id','name','description','price_marketing','type',
     inlines = VariationInline,
 
 
