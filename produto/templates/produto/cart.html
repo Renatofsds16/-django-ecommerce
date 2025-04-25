@@ -62,7 +62,7 @@
                     <table class="table">
                         <tr>
                             <td class="font-weight-bold">Total</td>
-                            <td>R$100000</td>
+                            <td>{{request.session.cart|cart_totals|format_price}}</td>
                         </tr>
                     </table>
                 </div>

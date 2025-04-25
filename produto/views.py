@@ -120,7 +120,7 @@ class CartView(View):
         return render(self.request,'produto/cart.html',context=context)
 
 
-class FinishView(View):
+class ResumeView(View):
     def get(self,*args, **kwargs):
         return HttpResponse('FinishView')
     

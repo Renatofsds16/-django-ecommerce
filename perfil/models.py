@@ -66,10 +66,10 @@ class UserProfile(models.Model):
         verbose_name = 'UserProfile'
         verbose_name_plural = 'UserProfiles'
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    age = models.PositiveIntegerField()
-    date_of_birth = models.DateField()
-    cpf = models.CharField(max_length=15)
-    adress = models.ForeignKey(Adress,on_delete=models.SET_NULL,null=True)
+    age = models.PositiveIntegerField(verbose_name='idade')
+    date_of_birth = models.DateField(verbose_name='data de nascimento')
+    cpf = models.CharField(max_length=15,verbose_name='cpf')
+    adress = models.ForeignKey(Adress,on_delete=models.SET_NULL,null=True,verbose_name='Endereço')
 
     def __str__(self):
         return f'{self.user.first_name}'
